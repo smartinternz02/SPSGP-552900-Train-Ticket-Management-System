@@ -1,0 +1,19 @@
+<ul class="trains-container container pt-4">
+    <h1>Trains</h1>
+    <div class="text-center" *ngIf="isLoading" style="margin-top: 150px;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <li *ngFor="let train of trains">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{ train.trainName }}</h5>
+          <p class="card-text">Train number: {{ train.trainNumber }}</p>
+          <p class="card-text">Departure: {{ train.origin }}</p>
+          <p class="card-text">Destination: {{ train.destination }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+  

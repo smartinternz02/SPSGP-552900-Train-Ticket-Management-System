@@ -1,0 +1,195 @@
+
+
+<div class="main-container">
+    <div class="home-container"  id="home">
+        <div class="body-container">
+            <div class="container text-light" id="banner">
+                <h1 class="banner-h1">Embark on a Journey to the Extraordinary!!</h1>
+                <p class="banner-p">Unleash your travel desires and book extraordinary train journeys that will transport you to unforgettable destinations, igniting a sense of adventure like never before.</p>
+                <div class="d-flex align-items-center mb-2" style="gap: 10px;">
+                    <input type="checkbox" class="checkbox" (change)="onRoundTripChange($event)" style="cursor: pointer;"> <label style="font-size: 20px; margin-top: 10px; font-weight: bold;">Round Trip</label>
+                  </div>
+                  
+                <div class="input-container mb-4">
+                    <div class="input-field-container">
+                      <label for="departure">Departure</label>
+                      <select name="from" id="from" class="input-field" [(ngModel)]="selectedFrom">
+                        <option value="" selected disabled>Departure Station</option>
+                        <option value="Chennai">Chennai Central</option>
+                        <option value="Banglore">Banglore Majestic</option>
+                        <option value="Hyderabad">Hyderabad Central</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Indore">Indore</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Trivendrum">Trivendrum</option>
+                        <option value="Bhopal">Bhopal</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="varanasi">varanasi</option>
+                        <option value="Jaipur">Jaipur</option>
+
+
+                        <!-- Add more options as needed -->
+                      </select>
+                    </div>
+                    <div class="input-field-container">
+                      <label for="destination">Destination</label>
+                      <select name="to" id="to" class="input-field" [(ngModel)]="selectedTo">
+                        <option value="" selected disabled>Destination Station</option>
+                        <option value="Chennai">Chennai Central</option>
+                        <option value="Banglore">Banglore Majestic</option>
+                        <option value="Hyderabad">Hyderabad Central</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Indore">Indore</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Trivendrum">Trivendrum</option>
+                        <option value="Bhopal">Bhopal</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="varanasi">varanasi</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <!-- Add more options as needed -->
+                      </select>
+                    </div>
+                    <div class="input-field-container">
+                      <label for="journey">Journey Date</label>
+                      <input type="date" class="input-field" [(ngModel)]="selectedDate" (change)="checkSelectedDate()">
+                    </div>
+                    <div class="input-field-container" *ngIf="roundTrip">
+                      <label for="return">Return Date</label>
+                      <input type="date" class="input-field" [(ngModel)]="returnDate" (change)="checkReturnDate()">
+                    </div>
+                    <div class="button-container">
+                        <label for=""></label>
+                        <button class="button" (click)="search()" [disabled]="!isDestinationFormValid()">Search</button>
+                    </div>
+                  </div>
+                  
+                <p class="error-message text-danger" style="font-weight: bold; font-size: 28px;" *ngIf="error">{{ error }}</p>
+                <p *ngIf="isSame" class="text-danger" style="font-weight: bold; font-size: 28px;">Departure and
+                    destination shouldn't be same</p>
+                <div class="text-center" *ngIf="isLoading" style="margin-top: 150px;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="row mt-4" *ngIf="trains.length !== 0 && !isLoading">
+                    <h1>Available Trains</h1>
+                    <div class="col-md-12" *ngFor="let train of trains">
+                        <div class="card mb-4 shadow train-card">
+                            <div class="card-body d-flex align-items-center justify-content-between"
+                                style="width: 100%; overflow: auto;gap: 10px;">
+                                <div>
+                                    <h5 class="card-title train-card-p">{{ train.trainName }}</h5>
+                                    <p class="card-text train-card-p">Train Number: {{ train.trainNumber }}</p>
+                                </div>
+                                <div>
+                                    <p class="card-text train-card-p">Start Station: {{ train.origin }}</p>
+                                    <p class="card-text" style=" color: #d8d8d8;">Departure Time: {{
+                                        train.departureTime }}</p>
+                                </div>
+                                <div>
+                                    <p class="card-text train-card-p">Destination Station: {{ train.destination }}</p>
+                                    <p class="card-text" style="color: #d8d8d8;">Arrival Time: {{ train.arrivalTime }}</p>
+                                </div>
+                                <div>
+                                    <p class="card-text train-card-p">Starting Price: {{ train.price }}</p>
+                                    <p class="card-text" style="color: #d8d8d8;">Available Seats: {{
+                                        train.seatsAvailable  }}</p>
+                                </div>
+                                <button class="button" (click)="openModal(train,train._id)">Book Now</button>
+                                <ng-template #content let-modal>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Booking Details</h4>
+                                        <button type="button" class="close" aria-label="Close"
+                                            (click)="modal.dismiss()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body" style="display: flex; flex-direction: column; gap: 15px;">
+
+                                        <div class="number-of-seats">
+                                            <label for="emailAddress">Email: </label>
+                                            <input type="text" id="emailAddress" [(ngModel)]="email" class="input-field">
+                                        </div>
+                                        <div class="number-of-seats">
+                                            <label for="mobilenumber">Mobile number: </label>
+                                            <input type="text" id="mobilenumber" [(ngModel)]="mobile" class="input-field">
+                                        </div>
+                                        <div class="number-of-seats">
+                                            <label for="no-of-seats">Enter the no.of passengers: </label>
+                                            <input type="number" id="no-of-seats" [(ngModel)]="noOfPassengers" (ngModelChange)="passengerCountChange(train.price)" class="input-field">
+                                        </div>
+
+                                        <div class="train-class">
+
+                                            <label for="train-class-type" class="mt-2 mb-2">Coach class: </label>
+                                            <select name="train-class" id="train-class-type" class="input-field" [(ngModel)]="coachClass" (ngModelChange)="coachClassChange(train.price)" >
+                                                <option value="" disabled>Select</option>
+                                                <option value="s2">Seater (General)</option>
+                                                <option value="sleeper">Sleeper</option>
+                                                <option value="3ac">3 tier AC</option>
+                                                <option value="2ac">2 tier AC</option>
+                                                <option value="1ac">1 tier AC</option>
+                                              </select>
+                                        </div>
+
+
+
+
+                                        <div *ngFor="let i of getRange(noOfPassengers)" style="display: flex; flex-direction: column; margin-top: 10px; gap: 3px;">
+                                            <p>Passenger {{i+1}}:</p>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <input [(ngModel)]="passengers[i].name" placeholder="Name" class="input-field" />
+                                                <input [(ngModel)]="passengers[i].age" placeholder="Age" class="input-field" />
+                                            </div>
+                                        </div>
+
+                                        <div class="selected-seats">
+                                            <p>Total Price: {{totalPrice}} RS</p>
+                                        </div>
+                                        
+                                       
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            (click)="modal.dismiss()">Close</button>
+                                        <button type="button" class="btn btn-primary" (click)="confirmBooking()"
+                                           >Confirm Booking</button>
+                                    </div>
+
+
+                                </ng-template>
+                               
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="about" class="section-about  p-4">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p class="section-description">
+                &nbsp; &nbsp;&nbsp; &nbsp; Welcome to our train ticket booking app, where we are dedicated to providing you with an exceptional travel experience from start to finish. Whether you're embarking on a daily commute, planning an exciting cross-country adventure, or seeking a leisurely scenic route, our app offers an extensive selection of train options to cater to your unique travel preferences.
+            </p>
+            <p class="section-description">
+                &nbsp; &nbsp;&nbsp; &nbsp; We understand the importance of convenience and efficiency in your travel plans. Our user-friendly interface allows you to effortlessly browse through a wide range of train schedules, compare fares, and choose the most suitable seating options. With just a few taps, you can secure your train tickets and be one step closer to your desired destination. Our intuitive booking process enables you to customize your travel preferences, such as selecting specific departure times, opting for a window seat, or accommodating any special requirements.
+            </p>
+            <p class="section-description">
+                &nbsp; &nbsp;&nbsp; &nbsp; With our train ticket booking app, you can embrace the joy of exploring new destinations, immerse yourself in breathtaking scenery, and create cherished memories along the way. Start your journey today and let us be your trusted companion in making your train travel dreams a reality. Experience the convenience, reliability, and comfort that our app offers, and embark on unforgettable train adventures with confidence.
+            </p>
+
+            <span><h5>2023 RailEase - &copy; All rights reserved</h5></span>
+
+        </div>
+    </section>
+
+    
+
+
+</div>

@@ -1,0 +1,229 @@
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.home-container {
+  height: 90vh;
+  background-color: rgb(206, 232, 255);
+  /* background-image: url('https://velvetescape.com/wp-content/uploads/2010/06/ramon-kagie-hVfM3XPdBF8-unsplash-640x409.jpg'); */
+  background-image: url('../../../assets/trainhome.png');
+  background-size: cover;
+  background-position: center;
+  overflow: auto;
+}
+
+.home-container .banner-h1{
+  width: 65%;
+  font-size: 4.5rem;
+  font-weight: bold;
+}
+.home-container .banner-p{
+  width: 50%;
+  /* font-size: 4.5rem; */
+}
+
+#banner {
+  margin-top: 15vh;
+}
+
+@media screen and (max-width:768px) {
+  #banner {
+    margin-top: 60px;
+  }
+}
+
+.body-container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: auto;
+}
+
+.input-container {
+  width: fit-content;
+  display: flex;
+  background-color: #34b5f154;
+  backdrop-filter: blur(15px);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 10px;
+  min-height: 60px;
+  gap: 10px;
+  border-radius: 0.9rem;
+}
+
+.input-container label{
+  font-weight: 600;
+}
+
+@media screen and (max-width:975px) {
+  .input-container {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.input-field {
+  height: 100%;
+  width: 240px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #ffffffb6;
+  color: rgba(0, 47, 98, 0.906);
+  cursor: pointer;
+}
+
+@media screen and (max-width:975px) {
+  .input-field {
+    width: 100%;
+  }
+}
+
+
+.train-card{
+  background-color: #34b5f154 !important;
+  backdrop-filter: blur(15px);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.train-card-p{
+  color: #fff6f6 !important;
+}
+
+.section-about {
+  min-height: 50vh;
+  /* background-color: rgb(207, 221, 233); */
+  background: rgb(75,143,209);
+  background: linear-gradient(145deg, rgb(205, 227, 249) 0%, rgb(232, 239, 243) 55%, rgb(213, 189, 222) 100%);
+}
+
+.section-about h2{
+  
+    font-weight: 600;
+    color: #055791;
+
+}
+
+.section-about p{
+  text-align: justify;
+  color: #055791;
+}
+.section-about span{
+  text-align: center;
+  color: #6badeb;
+}
+.section-about span h5{
+  margin-top: 8vh;
+  font-size: 1rem;
+}
+
+
+.main-container {
+  height: 90vh;
+  overflow: auto;
+}
+
+.button {
+  background-color: rgb(0, 80, 133);
+  width: 120px;
+  height: 44px;
+  border: 0;
+  outline: none;
+  border-radius: 2px;
+  color: #e6e3e3;
+  cursor: pointer;
+}
+
+/* .card{
+    box-shadow: 0 10px 25px #3a3a3a;
+} */
+
+footer {
+  background-color: #cecece;
+  padding: 20px;
+}
+
+
+
+
+
+.footer-column h4 {
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+}
+
+.footer-column ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  color: #888;
+}
+
+
+.seat {
+  width: 60px;
+  height: 30px;
+  border: 1px solid grey;
+}
+
+.seat:hover {
+  background-color: #ffb22e;
+  transition: 0.3s ease-in;
+  cursor: pointer;
+}
+
+.green-bg {
+  background-color: green;
+}
+
+.form-container {
+  display: flex;
+  overflow: auto;
+}
+
+.input-field-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.button-container {
+  margin-top: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  /* justify-content: end; */
+}
+
+.list-inline-item{
+  font-size: 30px;
+  margin: 10px;
+}
+
+.checkbox{
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+}
